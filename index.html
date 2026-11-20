@@ -274,6 +274,37 @@ document.getElementById("form").addEventListener("submit",function(e){
 document.getElementById("lang").addEventListener("click",function(){
   setLang(document.documentElement.lang==="ar"?"en":"ar");
 });
+  <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzkDqroDTFG7VUDN2O17lpvY5nnE3AFRxuK8c-cS2fhCmB3kJDpdWNf6MzXyyMzhDgg/exec";
+  const form = document.querySelector("form");
+
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name: document.querySelector("#name")?.value || "",
+        phone: document.querySelector("#phone")?.value || "",
+        email: document.querySelector("#email")?.value || "",
+        message: document.querySelector("#message")?.value || ""
+      };
+
+      fetch(scriptURL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        alert("Sent successfully!");
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again.");
+      });
+    });
+  }
 </script>
 </body>
 </html>
